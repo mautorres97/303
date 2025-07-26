@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>303 Tres Zero Tres - Eventos musicales</title>
-    <meta name="description" content="Eventos de música profesionales de Tres Zero Tres. Presentando el concierto Rich Mafia - Alemán + Gera MX en el CCT Centro de Convenciones de Torreón.">
+    <title>303 Tres Zero Tres - Eventos Musicales</title>
+    <meta name="description" content="Eventos musicales profesionales por Tres Zero Tres. Presentando concierto Rich Mafia - Alemán + Gera MX en CCT Centro de Convenciones de Torreón.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,11 +41,14 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h2 class="hero-subtitle">PRESENTA</h2>
-                    <h1 class="hero-title">RICH MAFIA</h1>
+                    <div class="hero-logo">
+                        <img src="assets/images/RichMafiaLogoBlanco.png" alt="Rich Mafia" class="rich-mafia-logo">
+                    </div>
                     <div class="artists">
                         <span class="artist">ALEMÁN</span>
                         <span class="plus">+</span>
@@ -60,26 +63,22 @@
                     </div>
                     <div class="detail-item">
                         <i class="fas fa-calendar-alt"></i>
-                        <span>26 de septiembre de 2025</span>
-                    </div>
-                    <div class="detail-item">
-                        <i class="fas fa-ticket-alt"></i>
-                        <span>Boletos próximamente</span>
+                        <span>26 de Septiembre, 2025</span>
                     </div>
                 </div>
 
-                <button class="cta-button" id="buy-tickets">
-                    <span>Comprar entradas</span>
+                <a href="https://rich-mafia-torreon.boletia.com/" target="_blank" class="cta-button" id="buy-tickets">
+                    <span>Comprar Boletos</span>
                     <i class="fas fa-arrow-right"></i>
-                </button>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Eventos Section -->
+    <!-- Events Section -->
     <section id="events" class="events-section">
         <div class="container">
-            <h2 class="section-title">Próximos eventos</h2>
+            <h2 class="section-title">Próximos Eventos</h2>
             <div class="events-grid">
                 <div class="event-card">
                     <div class="event-header">
@@ -101,58 +100,34 @@
                         </div>
                         <div class="event-time">
                             <i class="fas fa-clock"></i>
-                            <span>Hora por anunciar</span>
+                            <span>7:00 PM - 2:00 AM</span>
                         </div>
                     </div>
                     <div class="event-footer">
-                        <button class="event-btn">Consigue boletos</button>
+                        <a href="https://rich-mafia-torreon.boletia.com/" target="_blank" class="event-btn">Ver Boletos</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contacto Section -->
+    <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h2 class="section-title">Ponte en contacto</h2>
-                    <p class="contact-description">
-                        ¿Listo para llevar experiencias musicales inolvidables a tu lugar? 
-                        Contáctanos para solicitudes de reservas y asociaciones de eventos.
-                    </p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fab fa-instagram"></i>
-                            <span>@treszerotres.mx</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>info@treszerotres.mx</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form-wrapper">
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">
-                            <span>Enviar mensaje</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
+            <div class="contact-center">
+                <h2 class="section-title">Ponte en Contacto</h2>
+                <p class="contact-description">
+                    Para reservar mesas o más información, contáctanos por Instagram o WhatsApp
+                </p>
+                <div class="contact-buttons">
+                    <a href="https://instagram.com/treszerotres.mx" target="_blank" class="contact-button instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>@treszerotres.mx</span>
+                    </a>
+                    <a href="https://wa.me/5218110164098" target="_blank" class="contact-button whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>+52 81 1016 4098</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -164,36 +139,25 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h3>303 TRES ZERO TRES</h3>
-                    <p>Eventos musicales profesionales</p>
+                    <p>Eventos Musicales Profesionales</p>
                 </div>
                 <div class="footer-links">
                     <div class="social-links">
                         <a href="https://instagram.com/treszerotres.mx" target="_blank" rel="noopener noreferrer">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="mailto:info@treszerotres.mx">
+                        <a href="mailto:303treszerotres303@gmail.com">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Tres Zero Tres. All rights reserved.</p>
+                <p>&copy; 2025 Tres Zero Tres. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Success Modal -->
-    <div class="modal" id="success-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <i class="fas fa-check-circle"></i>
-                <h3>¡Mensaje enviado!</h3>
-            </div>
-            <p>¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto!</p>
-            <button class="modal-btn" id="close-modal">Cerrar</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>

@@ -1,206 +1,79 @@
-// DOM Elements
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
-const contactForm = document.getElementById('contact-form');
-const modal = document.getElementById('success-modal');
-const closeModal = document.getElementById('close-modal');
-const buyTicketsBtn = document.getElementById('buy-tickets');
+// Initialize navigation after DOM loads
+function initializeNavigation() {
+    // DOM Elements
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const buyTicketsBtn = document.getElementById('buy-tickets');
 
-// Mobile Navigation Toggle
-hamburger.addEventListener('click', function() {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+    console.log('Hamburger element:', hamburger);
+    console.log('Nav menu element:', navMenu);
 
-// Close mobile menu when clicking on nav links
-navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
+    // Mobile Navigation Toggle
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Hamburger clicked!');
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            console.log('Hamburger has active class:', hamburger.classList.contains('active'));
+            console.log('Nav menu has active class:', navMenu.classList.contains('active'));
+        });
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', function(event) {
-    const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
-    
-    if (!isClickInsideNav && navMenu.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
-// Smooth scrolling for navigation links
-navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = targetSection.offsetTop - navbarHeight;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
+        // Close mobile menu when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             });
-        }
-    });
-});
+        });
 
-// Contact Form Handling
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const name = formData.get('name').trim();
-    const email = formData.get('email').trim();
-    const message = formData.get('message').trim();
-    
-    // Basic validation
-    if (!name || !email || !message) {
-        showNotification('Por favor, completa todos los campos.', 'error');
-        return;
-    }
-    
-    if (!isValidEmail(email)) {
-        showNotification('Por favor, ingresa una dirección de correo electrónico válida.', 'error');
-        return;
-    }
-    
-    // Simulate form submission (since no backend)
-    const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalText = submitBtn.innerHTML;
-    
-    // Show loading state
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-    submitBtn.disabled = true;
-    
-    // Simulate API call delay
-    setTimeout(() => {
-        // Reset form
-        contactForm.reset();
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        
-        // Show success modal
-        modal.style.display = 'block';
-        
-        // Log form data (for development purposes)
-        console.log('Form submission:', { name, email, message });
-    }, 1500);
-});
-
-// Email validation function
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// Notification function (for form validation errors)
-function showNotification(message, type = 'info') {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    // Add notification styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'error' ? '#ff4444' : '#4CAF50'};
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        z-index: 3000;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        animation: slideInRight 0.3s ease;
-        max-width: 300px;
-    `;
-    
-    // Add to page
-    document.body.appendChild(notification);
-    
-    // Remove after 4 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
+            
+            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
             }
-        }, 300);
-    }, 4000);
+        });
+
+        // Smooth scrolling for navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Close mobile menu with Escape key
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    } else {
+        console.error('Hamburger or nav-menu not found!');
+    }
 }
 
-// Add notification animations to CSS (dynamically)
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-    
-    .notification-content {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-`;
-document.head.appendChild(style);
 
-// Modal close functionality
-closeModal.addEventListener('click', function() {
-    modal.style.display = 'none';
-});
-
-// Close modal when clicking outside
-window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-        modal.style.display = 'none';
-    }
-});
-
-// Buy Tickets button functionality
-buyTicketsBtn.addEventListener('click', function() {
-    // Since tickets are "coming soon", show appropriate message
-    showNotification('¡Los boletos estarán disponibles pronto! Síguenos en Instagram @treszerotres.mx para actualizaciones.', 'info');
-});
-
-// Event card buttons
-document.querySelectorAll('.event-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        showNotification('¡Los boletos estarán disponibles pronto! Síguenos en Instagram @treszerotres.mx para actualizaciones.', 'info');
-    });
-});
+// Enlaces a Boletia ahora son enlaces <a> directos, no necesitan JavaScript
 
 // Navbar scroll effect
 let lastScrollY = window.scrollY;
@@ -210,11 +83,9 @@ window.addEventListener('scroll', function() {
     const currentScrollY = window.scrollY;
     
     if (currentScrollY > 100) {
-        navbar.style.background = 'rgba(0, 0, 0, 0.98)';
-        navbar.style.borderBottom = '1px solid #404040';
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.background = 'rgba(0, 0, 0, 0.95)';
-        navbar.style.borderBottom = '1px solid #303030';
+        navbar.classList.remove('scrolled');
     }
     
     lastScrollY = currentScrollY;
@@ -253,27 +124,33 @@ function preloadAssets() {
     document.head.appendChild(fontLink);
 }
 
+// WebP detection
+function checkWebP(callback) {
+    const webP = new Image();
+    webP.onload = webP.onerror = function () {
+        callback(webP.height === 2);
+    };
+    webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+}
+
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize navigation first
+    initializeNavigation();
+    
     preloadAssets();
+    
+    // Check WebP support
+    checkWebP(function(support) {
+        if (!support) {
+            document.documentElement.classList.add('no-webp');
+        }
+    });
     
     // Add loading class to body
     document.body.classList.add('loaded');
 });
 
-// Handle keyboard navigation
-document.addEventListener('keydown', function(e) {
-    // Close modal with Escape key
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-        modal.style.display = 'none';
-    }
-    
-    // Close mobile menu with Escape key
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    }
-});
 
 // Performance optimization: Debounce scroll event
 function debounce(func, wait) {
@@ -307,7 +184,29 @@ window.addEventListener('scroll', debouncedScrollHandler);
 window.addEventListener('load', function() {
     document.body.style.opacity = '1';
     document.body.style.transition = 'opacity 0.3s ease';
+    
+    // Ensure hero background is fully loaded
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg) {
+        heroBg.style.opacity = window.innerWidth <= 480 ? '0.5' : '0.4';
+    }
 });
 
 // Initialize page with opacity 0
 document.body.style.opacity = '0';
+
+// Preload hero background image
+const heroImage = new Image();
+heroImage.onload = function() {
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg) {
+        heroBg.style.opacity = window.innerWidth <= 480 ? '0.5' : '0.4';
+    }
+};
+
+// Determine which image to preload based on screen size
+if (window.innerWidth <= 480) {
+    heroImage.src = 'assets/images/_DSC0935 copia.jpg';
+} else {
+    heroImage.src = 'assets/images/RMMedios-150.jpg';
+}
